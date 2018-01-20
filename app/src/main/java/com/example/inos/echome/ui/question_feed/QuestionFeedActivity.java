@@ -87,14 +87,16 @@ public class QuestionFeedActivity extends AppCompatActivity implements IQuestion
         public class CustomViewHolder extends RecyclerView.ViewHolder {
             public TextView questionTextView;
             public ArrayList<View> answersTvList;
+            public View mainView;
 
             public CustomViewHolder(View itemView) {
                 super(itemView);
+                this.mainView = itemView;
                 questionTextView = (TextView) itemView.findViewById(R.id.question_tv);
             }
 
-            public void addAnswerOption() {
-                
+            public void addAnswerOption(String answer) {
+                itemView.findViewById(R.id.answer_lv);
             }
 
         }

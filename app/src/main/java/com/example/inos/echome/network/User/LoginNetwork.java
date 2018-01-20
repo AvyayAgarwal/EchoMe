@@ -12,12 +12,12 @@ import retrofit2.Retrofit;
  * Created by vinitsoni on 2018-01-20.
  */
 
-public class LoginNet implements ILoginNetwork {
+public class LoginNetwork implements ILoginNetwork {
 
-    ILoginPresenter presenter;
+    ILoginPresenter mLoginPresenter;
 
-    public LoginNet(ILoginPresenter p) {
-        this.presenter = p;
+    public LoginNetwork(ILoginPresenter p) {
+        this.mLoginPresenter = p;
     }
 
     @Override
@@ -40,5 +40,7 @@ public class LoginNet implements ILoginNetwork {
 
             }
         });
+        boolean isSuccess = true;
+        mLoginPresenter.updateLoginStatus(isSuccess);
     }
 }

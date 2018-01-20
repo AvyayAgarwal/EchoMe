@@ -5,5 +5,11 @@ package com.example.inos.echome.presenters;
  */
 
 public interface ILoginPresenter {
+
+    // USED BY VIEW
     void checkLoginWith(String username, String password);
+
+
+    // USED BY MODEL/NETWORK
+    void updateLoginStatus(boolean isSuccess);
 }

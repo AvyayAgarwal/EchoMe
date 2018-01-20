@@ -14,6 +14,7 @@ import com.example.inos.echome.ui.question_feed.QuestionFeedActivity;
 public class LoginActivity extends AppCompatActivity implements ILoginView {
 
     Button mStubLoginBtn;
+    Button trueLogin;
 
     ILoginPresenter presenter;
 
@@ -32,14 +33,18 @@ public class LoginActivity extends AppCompatActivity implements ILoginView {
                 startActivity(new Intent(LoginActivity.this, QuestionFeedActivity.class));
             }
         });
+
+
     }
 
     @Override
     public void updateLoginStatus(boolean isLoginSuccessful) {
         // TODO: send user to next activity if LOGIN SUCCESS
 
-        if(isLoginSuccessful ==  true) {
-            //go to home page
+        if(isLoginSuccessful) {
+
+        } else {
+
         }
 
     }

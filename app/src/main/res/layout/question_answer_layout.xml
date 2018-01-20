@@ -1,16 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="550dp"
+    android:layout_width="370dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_centerInParent="true"
+    android:background="@color/colorPrimary"
+    android:padding="10dp"
+    app:cardElevation="5dp"
+    app:cardCornerRadius="20dp">
+
 
     <TextView
         android:id="@+id/question_tv"
+        android:text="On a scale of 1 to 10, how friendly is this person?"
+        android:layout_gravity="center_horizontal"
+        android:textSize="@dimen/question_size"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
-    <TextView
-        android:id="@+id/answer_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/question_tv"/>
 
-</RelativeLayout>
+    <ListView
+        android:id="@+id/answer_lv"
+        android:layout_width="match_parent"
+        android:layout_below="@id/question_tv"
+        android:layout_height="wrap_content"/>
+
+
+</android.support.v7.widget.CardView>

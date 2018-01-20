@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.inos.echome.ui.QuestionFeed.QuestionFeedActivity">
+    tools:context="com.example.inos.echome.ui.question_feed.QuestionFeedActivity">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/qa_recview"

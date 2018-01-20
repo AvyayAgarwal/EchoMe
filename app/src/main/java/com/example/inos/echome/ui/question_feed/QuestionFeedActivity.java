@@ -1,4 +1,4 @@
-package com.example.inos.echome.ui.QuestionFeed;
+package com.example.inos.echome.ui.question_feed;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -73,7 +73,7 @@ public class QuestionFeedActivity extends AppCompatActivity implements IQuestion
         @Override
         public void onBindViewHolder(CustomViewHolder holder, int position) {
             holder.questionTextView.setText(qaList.get(position).getQuestion());
-            holder.answerTextView.setText(qaList.get(position).getAnswer());
+            holder.addAnswerOption(qaList.get(position).getAnswer());
         }
 
         @Override
@@ -86,14 +86,17 @@ public class QuestionFeedActivity extends AppCompatActivity implements IQuestion
         // -------------------------- View Holder --------------------------
         public class CustomViewHolder extends RecyclerView.ViewHolder {
             public TextView questionTextView;
-            public TextView answerTextView;
+            public ArrayList<View> answersTvList;
 
             public CustomViewHolder(View itemView) {
                 super(itemView);
                 questionTextView = (TextView) itemView.findViewById(R.id.question_tv);
-                answerTextView = (TextView) itemView.findViewById(R.id.answer_tv);
-
             }
+
+            public void addAnswerOption() {
+                
+            }
+
         }
         // -----------------------------------------------------------------
     }

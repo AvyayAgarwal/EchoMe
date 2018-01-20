@@ -21,8 +21,8 @@ import com.example.inos.echome.R;
 import com.example.inos.echome.models.QuestionAnswer;
 import com.example.inos.echome.presenters.question_feed.IQuestionFeedPresenter;
 import com.example.inos.echome.presenters.question_feed.QuestionFeedPresenter;
+import com.wajahatkarim3.easyflipview.EasyFlipView;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class QuestionFeedActivity extends AppCompatActivity implements IQuestionFeedView {
@@ -107,18 +107,20 @@ public class QuestionFeedActivity extends AppCompatActivity implements IQuestion
             public TextView questionTextView;
             public ArrayList<View> answersTvList;
             public RadioGroup ansListRg;
+            public EasyFlipView questionCardFlipView;
 
 
             public CustomViewHolder(View itemView) {
                 super(itemView);
                 ansListRg = (RadioGroup) itemView.findViewById(R.id.ans_list_rg);
                 questionTextView = (TextView) itemView.findViewById(R.id.question_tv);
+                questionCardFlipView = (EasyFlipView) itemView.findViewById(R.id.question_card_fv);
 
                 ansListRg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
                     @Override
                     public void onCheckedChanged(RadioGroup radioGroup, @IdRes int i) {
-                        Toast.makeText(getBaseContext(), ((RadioButton)findViewById(i)).getText(), Toast.LENGTH_SHORT).show();
-                        mQuestionFeedPresenter.answered("CHECK");
+                        mQuestionFeedPresenter.answered(((RadioButton)findViewById(i)).getText().toString());
+                        questionCardFlipView.flipTheView();
                     }
                 });
             }

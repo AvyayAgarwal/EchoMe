@@ -36,6 +36,10 @@ public class QuestionFeedPresenter implements IQuestionFeedPresenter {
     @Override
     public void setInitialList() {
         // TODO: fetch a list from network layer
+        notifyQuestionReceived(new QuestionAnswer("What is your name?", "Vinit Soni"));
+        notifyQuestionReceived(new QuestionAnswer("What happened?", "Holy shit"));
+        notifyQuestionReceived(new QuestionAnswer("aaaaaa----------", "adsad"));
+        notifyQuestionReceived(new QuestionAnswer("checkssdsadsa", "Holy shit again"));
         for (int i = 0; i < 5; i++) {
             mQuestionFeedNetwork.getQuestion("vinso"); // TODO: change to dynamically set username
         }

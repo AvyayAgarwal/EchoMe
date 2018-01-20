@@ -1,9 +1,12 @@
 package com.example.inos.echome.ui.question_feed;
 
+import android.os.Handler;
 import android.support.annotation.IdRes;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.LinearSmoothScroller;
 import android.support.v7.widget.LinearSnapHelper;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SnapHelper;
@@ -22,9 +25,13 @@ import com.wajahatkarim3.easyflipview.EasyFlipView;
 
 import java.util.ArrayList;
 
+import mehdi.sakout.fancybuttons.FancyButton;
+
 public class QuestionFeedActivity extends AppCompatActivity implements IQuestionFeedView {
 
     private RecyclerView mQaRecView;
+    private FancyButton nextBtn;
+
     private QAAdapter mAdapter;
     private ArrayList<QuestionAnswer> qaList;
 
@@ -39,18 +46,36 @@ public class QuestionFeedActivity extends AppCompatActivity implements IQuestion
 
         mQuestionFeedPresenter = new QuestionFeedPresenter(this); // TODO: DO NOT REMOVE NOTE: MUST BE INIT BEFORE REC VIEW
 
-
+        nextBtn = (FancyButton) findViewById(R.id.next_btn);
         SnapHelper snapHelper = new LinearSnapHelper();
         mQaRecView = (RecyclerView) findViewById(R.id.qa_recview);
         mAdapter = new QAAdapter(mQuestionFeedPresenter);
-        LinearLayoutManager llm = new LinearLayoutManager(getBaseContext(), LinearLayoutManager.HORIZONTAL, false);
+        final LinearLayoutManager llm = new LinearLayoutManager(getBaseContext(), LinearLayoutManager.HORIZONTAL, false);
 
         mQuestionFeedPresenter.setQAListAdapter(mAdapter);
-        mQuestionFeedPresenter.setInitialList(); // TODO: TEMP remove
+        mQuestionFeedPresenter.setInitialList();
+
+        final RecyclerView.SmoothScroller smoothScroller = new LinearSmoothScroller(getBaseContext()) {
+            @Override protected int getHorizontalSnapPreference() {
+                return LinearSmoothScroller.SNAP_TO_START;
+            }
+        };
 
         mQaRecView.setAdapter(mAdapter);
         mQaRecView.setLayoutManager(llm);
         snapHelper.attachToRecyclerView(mQaRecView);
+
+        nextBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                smoothScroller.setTargetPosition(llm.findFirstVisibleItemPosition()+1);
+                llm.startSmoothScroll(smoothScroller);
+            }
+        });
+
+
+
+
 
 
 
@@ -109,12 +134,23 @@ public class QuestionFeedActivity extends AppCompatActivity implements IQuestion
             ansListRg = (RadioGroup) itemView.findViewById(R.id.ans_list_rg);
             questionTextView = (TextView) itemView.findViewById(R.id.question_tv);
             questionCardFlipView = (EasyFlipView) itemView.findViewById(R.id.question_card_fv);
-
+            final View qaCard = itemView.findViewById(R.id.qa_card_layout);
+            final View graphCard = itemView.findViewById(R.id.graph_layout);
+            graphCard.setVisibility(View.INVISIBLE);
+            qaCard.setVisibility(View.VISIBLE);
             ansListRg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(RadioGroup radioGroup, @IdRes int i) {
                     mQuestionFeedPresenter.answered(((RadioButton)findViewById(i)).getText().toString());
                     questionCardFlipView.flipTheView();
+                    final Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            graphCard.setVisibility(View.VISIBLE);
+                            qaCard.setVisibility(View.INVISIBLE);
+                        }
+                    }, 1000);
                 }
             });
         }

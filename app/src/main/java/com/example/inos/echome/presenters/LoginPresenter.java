@@ -1,7 +1,7 @@
 package com.example.inos.echome.presenters;
 
-import com.example.inos.echome.network.User.ILoginNetwork;
-import com.example.inos.echome.network.User.LoginNetwork;
+import com.example.inos.echome.network.login.ILoginNetwork;
+import com.example.inos.echome.network.login.LoginNetwork;
 import com.example.inos.echome.ui.ILoginView;
 
 /**

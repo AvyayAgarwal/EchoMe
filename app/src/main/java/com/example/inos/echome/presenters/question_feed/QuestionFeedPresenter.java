@@ -2,8 +2,8 @@ package com.example.inos.echome.presenters.question_feed;
 
 import android.util.Log;
 
-import com.example.inos.echome.network.User.question_feed.IQuestionFeedNetwork;
-import com.example.inos.echome.network.User.question_feed.QuestionFeedNetwork;
+import com.example.inos.echome.network.question_feed.IQuestionFeedNetwork;
+import com.example.inos.echome.network.question_feed.QuestionFeedNetwork;
 import com.example.inos.echome.ui.question_feed.IQuestionFeedView;
 
 /**

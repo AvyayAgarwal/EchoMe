@@ -1,4 +1,4 @@
-package com.example.inos.echome.network.User.question_feed;
+package com.example.inos.echome.network.question_feed;
 
 import com.example.inos.echome.models.QuestionAnswer;
 import com.example.inos.echome.presenters.question_feed.IQuestionFeedPresenter;
@@ -23,15 +23,15 @@ public class QuestionFeedNetwork implements IQuestionFeedNetwork {
     }
 
     @Override
-    public void getQuestions() {
+    public void getQuestion(String userEmail, int qbaseKey) {
         // TODO: get questions from server
         Retrofit r = new Retrofit.Builder()
-                .baseUrl("<BASE URL GOES HERE>")
+                .baseUrl("https://azhng.lib.id/echo@dev/")
                 .build();
 
         QuestionFeedService qService = r.create(QuestionFeedService.class);
 
-        Call<ArrayList<QuestionAnswer>> qaCall = qService.getQuestions();
+        Call<ArrayList<QuestionAnswer>> qaCall = qService.getQuestion(userEmail, qbaseKey); // TODO: add params
         qaCall.enqueue(new Callback<ArrayList<QuestionAnswer>>() {
             @Override
             public void onResponse(Call<ArrayList<QuestionAnswer>> call, Response<ArrayList<QuestionAnswer>> response) {

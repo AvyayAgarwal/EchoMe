@@ -9,21 +9,51 @@
     app:cardElevation="5dp"
     app:cardCornerRadius="20dp">
 
-
-    <TextView
-        android:id="@+id/question_tv"
-        android:text="On a scale of 1 to 10, how friendly is this person?"
-        android:layout_gravity="center_horizontal"
-        android:textSize="@dimen/question_size"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-
-
-    <ListView
-        android:id="@+id/answer_lv"
+    <com.wajahatkarim3.easyflipview.EasyFlipView
         android:layout_width="match_parent"
-        android:layout_below="@id/question_tv"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        app:flipOnTouch="true"
+        app:flipEnabled="true"
+        app:flipDuration="400"
+        app:flipType="horizontal"
+        android:id="@+id/question_card_fv">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:text="THIS IS THE OTHER SIDE!"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/question_tv"
+                android:text="On a scale of 1 to 10, how friendly is this person?"
+                android:layout_gravity="center_horizontal"
+                android:textSize="@dimen/question_size"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <RadioGroup
+                android:id="@+id/ans_list_rg"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@id/question_tv"
+                android:padding="5dp">
+            </RadioGroup>
+
+        </RelativeLayout>
+
+
+
+    </com.wajahatkarim3.easyflipview.EasyFlipView>
+
+
 
 
 </android.support.v7.widget.CardView>

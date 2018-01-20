@@ -1,5 +1,6 @@
 package com.example.inos.echome.ui.question_feed;
 
+import android.support.annotation.IdRes;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -9,10 +10,18 @@ import android.support.v7.widget.SnapHelper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.inos.echome.R;
 import com.example.inos.echome.models.QuestionAnswer;
+import com.example.inos.echome.presenters.question_feed.IQuestionFeedPresenter;
+import com.example.inos.echome.presenters.question_feed.QuestionFeedPresenter;
+import com.wajahatkarim3.easyflipview.EasyFlipView;
 
 import java.util.ArrayList;
 
@@ -22,6 +31,8 @@ public class QuestionFeedActivity extends AppCompatActivity implements IQuestion
     private QAAdapter mAdapter;
     private ArrayList<QuestionAnswer> qaList;
 
+    private IQuestionFeedPresenter mQuestionFeedPresenter;
+
 
 
     @Override
@@ -29,9 +40,13 @@ public class QuestionFeedActivity extends AppCompatActivity implements IQuestion
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_question_feed);
 
+        mQuestionFeedPresenter = new QuestionFeedPresenter(this);
+
+
         qaList = new ArrayList<>(0);
         qaList.add(new QuestionAnswer("How old am I?", "10 years old"));
         qaList.add(new QuestionAnswer("How beautiful is this person", "Very very Beautiful"));
+
 
         SnapHelper snapHelper = new LinearSnapHelper();
         mQaRecView = (RecyclerView) findViewById(R.id.qa_recview);
@@ -73,7 +88,11 @@ public class QuestionFeedActivity extends AppCompatActivity implements IQuestion
         @Override
         public void onBindViewHolder(CustomViewHolder holder, int position) {
             holder.questionTextView.setText(qaList.get(position).getQuestion());
-            holder.addAnswerOption(qaList.get(position).getAnswer());
+            // TODO: change to for loop
+            ArrayList<String> ansList = new ArrayList<>(0);
+            ansList.add(qaList.get(position).getAnswer());
+            holder.addAnswerOption(ansList);
+
         }
 
         @Override
@@ -87,16 +106,32 @@ public class QuestionFeedActivity extends AppCompatActivity implements IQuestion
         public class CustomViewHolder extends RecyclerView.ViewHolder {
             public TextView questionTextView;
             public ArrayList<View> answersTvList;
-            public View mainView;
+            public RadioGroup ansListRg;
+            public EasyFlipView questionCardFlipView;
+
 
             public CustomViewHolder(View itemView) {
                 super(itemView);
-                this.mainView = itemView;
+                ansListRg = (RadioGroup) itemView.findViewById(R.id.ans_list_rg);
                 questionTextView = (TextView) itemView.findViewById(R.id.question_tv);
+                questionCardFlipView = (EasyFlipView) itemView.findViewById(R.id.question_card_fv);
+
+                ansListRg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(RadioGroup radioGroup, @IdRes int i) {
+                        mQuestionFeedPresenter.answered(((RadioButton)findViewById(i)).getText().toString());
+                        questionCardFlipView.flipTheView();
+                    }
+                });
             }
 
-            public void addAnswerOption(String answer) {
-                itemView.findViewById(R.id.answer_lv);
+            public void addAnswerOption(ArrayList<String> ansList) {
+                for (int i = 0; i < ansList.size(); i++) {
+                    RadioButton rb = new RadioButton(getBaseContext());
+                    rb.setText(ansList.get(i));
+                    this.ansListRg.addView(rb);
+                }
+
             }
 
         }

@@ -9,4 +9,5 @@ public interface IQuestionFeedPresenter {
     void getQuestions();
 
     // USED BY MODEL
+    void answered(String answer); // TODO: Change to get the valid params
 }

@@ -1,4 +1,4 @@
-package com.example.inos.echome.ui;
+package com.example.inos.echome.ui.QuestionFeed;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -16,11 +16,13 @@ import com.example.inos.echome.models.QuestionAnswer;
 
 import java.util.ArrayList;
 
-public class QuestionFeedActivity extends AppCompatActivity {
+public class QuestionFeedActivity extends AppCompatActivity implements IQuestionFeedView {
 
     private RecyclerView mQaRecView;
     private QAAdapter mAdapter;
     private ArrayList<QuestionAnswer> qaList;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +45,11 @@ public class QuestionFeedActivity extends AppCompatActivity {
 
 
 
+    }
+
+    @Override
+    public void getQuestions() {
+        // TODO: get the presenter to get the questions
     }
 
 

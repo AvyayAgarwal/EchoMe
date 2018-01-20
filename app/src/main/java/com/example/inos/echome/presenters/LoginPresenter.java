@@ -1,5 +1,7 @@
 package com.example.inos.echome.presenters;
 
+import com.example.inos.echome.network.User.ILoginNetwork;
+import com.example.inos.echome.network.User.LoginNetwork;
 import com.example.inos.echome.ui.ILoginView;
 
 /**
@@ -21,12 +23,13 @@ public class LoginPresenter implements ILoginPresenter {
         // TODO: check network layer if creds correct)
             // mLoginView.updateLoginStatus(username == mLoginView.username && password == mLoginView.password? True : False)
             mLoginNetwork.checkUserWith(username, password);
-        }
+
 
     }
 
     @Override
-    void updateLoginStatus(boolean isSuccess) {
+    public void updateLoginStatus(boolean isSuccess) {
+            mLoginView.updateLoginStatus(isSuccess);
 
     }
 

@@ -1,4 +1,4 @@
-package com.example.inos.echome.login;
+package com.example.inos.echome.ui;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;

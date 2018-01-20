@@ -1,4 +1,4 @@
-package com.example.inos.echome.network.User;
+package com.example.inos.echome.network.login;
 
 import com.example.inos.echome.models.User;
 import com.example.inos.echome.presenters.ILoginPresenter;
@@ -24,7 +24,7 @@ public class LoginNetwork implements ILoginNetwork {
     public void checkUserWith(String username, String password) {
         // TODO: check the username
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("<BASE URL GOES HERE>")
+                .baseUrl("https://azhng.lib.id/echo@dev/")
                 .build();
 
         UserService userService = retrofit.create(UserService.class);

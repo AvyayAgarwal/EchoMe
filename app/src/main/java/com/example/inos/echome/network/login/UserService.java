@@ -1,4 +1,4 @@
-package com.example.inos.echome.network.User;
+package com.example.inos.echome.network.login;
 
 import com.example.inos.echome.models.User;
 

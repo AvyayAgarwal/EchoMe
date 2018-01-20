@@ -1,4 +1,4 @@
-package com.example.inos.echome.network.User.question_feed;
+package com.example.inos.echome.network.question_feed;
 
 import com.example.inos.echome.models.QuestionAnswer;
 
@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
+import retrofit2.http.Query;
 
 /**
  * Created by vinitsoni on 2018-01-20.
@@ -14,6 +15,8 @@ import retrofit2.http.GET;
 public interface QuestionFeedService {
 
 
-    @GET("questions")
-    Call<ArrayList<QuestionAnswer>> getQuestions();
+    @GET("")
+    Call<ArrayList<QuestionAnswer>> getQuestion(@Query("user_email") String userEmail, @Query("qbase_key") int qbaseKey);
+
+
 }

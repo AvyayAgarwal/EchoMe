@@ -40,6 +40,6 @@ public class LoginActivity extends AppCompatActivity implements ILoginView {
         if(isLoginSuccessful ==  true) {
             //go to home page
         }
-        else()
+
     }
 }

@@ -29,4 +29,6 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile 'com.github.kubode.wiggle:framelayout:1.3.0'
     compile 'com.android.support:recyclerview-v7:26+'
+
+    compile 'com.squareup.retrofit2:retrofit:2.3.0'
 }

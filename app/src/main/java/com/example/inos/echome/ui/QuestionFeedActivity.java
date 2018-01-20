@@ -3,7 +3,9 @@ package com.example.inos.echome.ui;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.LinearSnapHelper;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SnapHelper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,8 +31,9 @@ public class QuestionFeedActivity extends AppCompatActivity {
         qaList.add(new QuestionAnswer("How old am I?", "10 years old"));
         qaList.add(new QuestionAnswer("How beautiful is this person", "Very very Beautiful"));
 
-
+        SnapHelper snapHelper = new LinearSnapHelper();
         mQaRecView = (RecyclerView) findViewById(R.id.qa_recview);
+        snapHelper.attachToRecyclerView(mQaRecView);
         mAdapter = new QAAdapter(qaList);
         LinearLayoutManager llm = new LinearLayoutManager(getBaseContext(), LinearLayoutManager.HORIZONTAL, false);
         mQaRecView.setAdapter(mAdapter);

@@ -15,8 +15,8 @@ import retrofit2.http.Query;
 public interface QuestionFeedService {
 
 
-    @GET("")
-    Call<ArrayList<QuestionAnswer>> getQuestion(@Query("user_email") String userEmail, @Query("qbase_key") int qbaseKey);
+    @GET("/some/endpoint")
+    Call<QuestionAnswer> getQuestion(@Query("user_email") String userEmail);
 
 
 }

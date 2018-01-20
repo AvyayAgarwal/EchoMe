@@ -10,12 +10,9 @@ import android.support.v7.widget.SnapHelper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.inos.echome.R;
 import com.example.inos.echome.models.QuestionAnswer;
@@ -40,21 +37,20 @@ public class QuestionFeedActivity extends AppCompatActivity implements IQuestion
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_question_feed);
 
-        mQuestionFeedPresenter = new QuestionFeedPresenter(this);
-
-
-        qaList = new ArrayList<>(0);
-        qaList.add(new QuestionAnswer("How old am I?", "10 years old"));
-        qaList.add(new QuestionAnswer("How beautiful is this person", "Very very Beautiful"));
+        mQuestionFeedPresenter = new QuestionFeedPresenter(this); // TODO: DO NOT REMOVE NOTE: MUST BE INIT BEFORE REC VIEW
 
 
         SnapHelper snapHelper = new LinearSnapHelper();
         mQaRecView = (RecyclerView) findViewById(R.id.qa_recview);
-        snapHelper.attachToRecyclerView(mQaRecView);
-        mAdapter = new QAAdapter(qaList);
+        mAdapter = new QAAdapter(mQuestionFeedPresenter);
         LinearLayoutManager llm = new LinearLayoutManager(getBaseContext(), LinearLayoutManager.HORIZONTAL, false);
+
+        mQuestionFeedPresenter.setQAListAdapter(mAdapter);
+        mQuestionFeedPresenter.setInitialList(); // TODO: TEMP remove
+
         mQaRecView.setAdapter(mAdapter);
         mQaRecView.setLayoutManager(llm);
+        snapHelper.attachToRecyclerView(mQaRecView);
 
 
 
@@ -68,73 +64,71 @@ public class QuestionFeedActivity extends AppCompatActivity implements IQuestion
     }
 
 
-    public class QAAdapter extends RecyclerView.Adapter<QAAdapter.CustomViewHolder> {
+    // ------------------------------------ Recycler View ----------------------------------------------
+    public class QAAdapter extends RecyclerView.Adapter<QuestionFeedActivity.CustomViewHolder> {
+        private IQuestionFeedPresenter mQuestionFeedPresenter;
 
-
-        private ArrayList<QuestionAnswer> qaList;
-
-        QAAdapter(ArrayList<QuestionAnswer> l) {
-            this.qaList = l;
+        QAAdapter(IQuestionFeedPresenter questionFeedPresenter) {
+            mQuestionFeedPresenter = questionFeedPresenter;
         }
 
         @Override
-        public CustomViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        public QuestionFeedActivity.CustomViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             View itemView = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.question_answer_layout, parent, false);
 
-            return new CustomViewHolder(itemView);
+            return new QuestionFeedActivity.CustomViewHolder(itemView);
         }
 
         @Override
-        public void onBindViewHolder(CustomViewHolder holder, int position) {
-            holder.questionTextView.setText(qaList.get(position).getQuestion());
+        public void onBindViewHolder(QuestionFeedActivity.CustomViewHolder holder, int position) {
+            holder.questionTextView.setText(mQuestionFeedPresenter.getQAAt(position).getQuestion());
             // TODO: change to for loop
             ArrayList<String> ansList = new ArrayList<>(0);
-            ansList.add(qaList.get(position).getAnswer());
+            ansList.add(mQuestionFeedPresenter.getQAAt(position).getAnswer());
             holder.addAnswerOption(ansList);
 
         }
 
         @Override
         public int getItemCount() {
-            return qaList.size();
+            return mQuestionFeedPresenter.getQAListSize();
         }
-
-
-
-        // -------------------------- View Holder --------------------------
-        public class CustomViewHolder extends RecyclerView.ViewHolder {
-            public TextView questionTextView;
-            public ArrayList<View> answersTvList;
-            public RadioGroup ansListRg;
-            public EasyFlipView questionCardFlipView;
-
-
-            public CustomViewHolder(View itemView) {
-                super(itemView);
-                ansListRg = (RadioGroup) itemView.findViewById(R.id.ans_list_rg);
-                questionTextView = (TextView) itemView.findViewById(R.id.question_tv);
-                questionCardFlipView = (EasyFlipView) itemView.findViewById(R.id.question_card_fv);
-
-                ansListRg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-                    @Override
-                    public void onCheckedChanged(RadioGroup radioGroup, @IdRes int i) {
-                        mQuestionFeedPresenter.answered(((RadioButton)findViewById(i)).getText().toString());
-                        questionCardFlipView.flipTheView();
-                    }
-                });
-            }
-
-            public void addAnswerOption(ArrayList<String> ansList) {
-                for (int i = 0; i < ansList.size(); i++) {
-                    RadioButton rb = new RadioButton(getBaseContext());
-                    rb.setText(ansList.get(i));
-                    this.ansListRg.addView(rb);
-                }
-
-            }
-
-        }
-        // -----------------------------------------------------------------
     }
+    // ------------------------------------------------------------------------------------
+
+    // -------------------------- View Holder --------------------------
+    public class CustomViewHolder extends RecyclerView.ViewHolder {
+        public TextView questionTextView;
+        public RadioGroup ansListRg;
+        public EasyFlipView questionCardFlipView;
+
+
+        public CustomViewHolder(View itemView) {
+            super(itemView);
+            ansListRg = (RadioGroup) itemView.findViewById(R.id.ans_list_rg);
+            questionTextView = (TextView) itemView.findViewById(R.id.question_tv);
+            questionCardFlipView = (EasyFlipView) itemView.findViewById(R.id.question_card_fv);
+
+            ansListRg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(RadioGroup radioGroup, @IdRes int i) {
+                    mQuestionFeedPresenter.answered(((RadioButton)findViewById(i)).getText().toString());
+                    questionCardFlipView.flipTheView();
+                }
+            });
+        }
+
+        public void addAnswerOption(ArrayList<String> ansList) {
+            for (int i = 0; i < ansList.size(); i++) {
+                RadioButton rb = new RadioButton(getBaseContext());
+                rb.setText(ansList.get(i));
+                this.ansListRg.addView(rb);
+            }
+
+        }
+
+    }
+    // -----------------------------------------------------------------
+
 }

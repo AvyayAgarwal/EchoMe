@@ -32,6 +32,8 @@ public class LoginActivity extends AppCompatActivity implements ILoginView {
                 startActivity(new Intent(LoginActivity.this, QuestionFeedActivity.class));
             }
         });
+
+
     }
 
     @Override

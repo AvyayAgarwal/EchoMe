@@ -41,10 +41,10 @@ public class LoginActivity extends AppCompatActivity implements ILoginView {
             @Override
             public void onClick(View view) {
                 EditText passEdit = (EditText) findViewById(R.id.password);
-                EditText usrEdit = (EditText) findViewById(R.id.username);
-                String _usernameTxt = usrEdit.getText().toString();
+                EditText usrEdit = (EditText) findViewById(R.id.emailID);
+                String _emailTxt = usrEdit.getText().toString();
                 String _passwordTxt = passEdit.getText().toString();
-                presenter.checkLoginWith(_usernameTxt, _passwordTxt);
+                presenter.checkLoginWith(_emailTxt, _passwordTxt);
                 //Add id from text box in XML whenever user input area is created
             //startActivity(new Intent(LoginActivity.this, QuestionFeedActivity.class));
         }

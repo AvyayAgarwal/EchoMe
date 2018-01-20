@@ -7,8 +7,8 @@
     tools:context="com.example.inos.echome.ui.LoginActivity">
 
     <EditText
-        android:id="@+id/username"
-        android:hint="Enter username"
+        android:id="@+id/emailID"
+        android:hint="Enter Email ID"
         android:layout_width="368dp"
         android:layout_height="wrap_content"
         android:inputType="textEmailAddress"
@@ -18,7 +18,7 @@
 
     <EditText
         android:id="@+id/password"
-        android:hint="Enter password"
+        android:hint="Enter Password"
         android:layout_width="368dp"
         android:layout_height="wrap_content"
         android:inputType="textPassword"

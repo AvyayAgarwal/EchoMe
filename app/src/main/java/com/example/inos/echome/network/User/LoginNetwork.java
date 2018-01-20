@@ -23,23 +23,24 @@ public class LoginNetwork implements ILoginNetwork {
     @Override
     public void checkUserWith(String username, String password) {
         // TODO: check the username
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("<BASE URL GOES HERE>")
-                .build();
 
-        UserService userService = retrofit.create(UserService.class);
-        Call<User> user = userService.getUser(username);
-        user.enqueue(new Callback<User>() {
-            @Override
-            public void onResponse(Call<User> call, Response<User> response) {
-                // TODO: parse response
-            }
-
-            @Override
-            public void onFailure(Call<User> call, Throwable t) {
-
-            }
-        });
+//        Retrofit retrofit = new Retrofit.Builder()
+//                .baseUrl("<BASE URL GOES HERE>")
+//                .build();
+//
+//        UserService userService = retrofit.create(UserService.class);
+//        Call<User> user = userService.getUser(username);
+//        user.enqueue(new Callback<User>() {
+//            @Override
+//            public void onResponse(Call<User> call, Response<User> response) {
+//                // TODO: parse response
+//            }
+//
+//            @Override
+//            public void onFailure(Call<User> call, Throwable t) {
+//
+//            }
+//        });
         boolean isSuccess = true;
         mLoginPresenter.updateLoginStatus(isSuccess);
     }

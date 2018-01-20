@@ -6,6 +6,26 @@
     android:layout_height="match_parent"
     tools:context="com.example.inos.echome.ui.LoginActivity">
 
+    <EditText
+        android:id="@+id/username"
+        android:hint="Enter username"
+        android:layout_width="368dp"
+        android:layout_height="wrap_content"
+        android:inputType="textEmailAddress"
+        android:layout_above="@+id/password"
+        android:layout_alignStart="@+id/password"
+        android:layout_marginBottom="26dp" />
+
+    <EditText
+        android:id="@+id/password"
+        android:hint="Enter password"
+        android:layout_width="368dp"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword"
+        android:layout_above="@+id/stub_login_btn"
+        android:layout_alignStart="@+id/login_btn"
+        android:layout_marginBottom="26dp" />
+
     <Button
         android:id="@+id/login_btn"
         android:text="login"
@@ -20,10 +40,8 @@
         android:text="login without auth"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/login_btn"
+        android:layout_alignTop="@+id/login_btn"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="11dp" />
-
-
+        android:layout_marginTop="53dp" />
 
 </RelativeLayout>

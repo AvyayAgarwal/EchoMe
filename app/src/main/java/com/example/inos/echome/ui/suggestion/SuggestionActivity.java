@@ -63,8 +63,6 @@ public class SuggestionActivity extends AppCompatActivity implements ISuggestion
                 String value = (String) person_1.getItemAtPosition(i);
                 Log.d("AZ", value);
                 et_person_1.setText(value);
-                Toast.makeText(SuggestionActivity.this, "FUKKK",
-                        Toast.LENGTH_SHORT).show();
             }
 
             @Override

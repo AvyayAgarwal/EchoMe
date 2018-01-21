@@ -9,5 +9,6 @@
     <color name="qaColour">#fca1bb</color>
 
     <color name="primaryLightColor">#88ecff</color>
+    <color name="colorRed">#ef23e5</color>
     <color name="secondaryLightColor">#ff84b0</color>
 </resources>

@@ -1,6 +1,8 @@
 package com.example.inos.echome.ui.question_feed;
 
+
 import android.os.AsyncTask;
+import android.content.Intent;
 import android.os.Handler;
 import android.support.annotation.IdRes;
 import android.support.design.widget.FloatingActionButton;
@@ -18,11 +20,13 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.example.inos.echome.R;
+
 import com.example.inos.echome.models.QuestionAnswer;
 import com.example.inos.echome.presenters.question_feed.IQuestionFeedPresenter;
 import com.example.inos.echome.presenters.question_feed.QuestionFeedPresenter;
+import com.example.inos.echome.ui.login.LoginActivity;
+import com.example.inos.echome.ui.suggestion.SuggestionActivity;
 import com.jjoe64.graphview.DefaultLabelFormatter;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.BarGraphSeries;
@@ -40,6 +44,8 @@ public class QuestionFeedActivity extends AppCompatActivity implements IQuestion
     private RecyclerView mQaRecView;
     private FancyButton nextBtn;
 
+    private FancyButton suggestionBtn;
+
     private QAAdapter mAdapter;
     private ArrayList<QuestionAnswer> qaList;
 
@@ -52,11 +58,14 @@ public class QuestionFeedActivity extends AppCompatActivity implements IQuestion
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_question_feed);
         this.username = "test1" ;// savedInstanceState.getString("username", "test1");
         mQuestionFeedPresenter = new QuestionFeedPresenter(this, username); // TODO: DO NOT REMOVE NOTE: MUST BE INIT BEFORE REC VIEW
 
         nextBtn = (FancyButton) findViewById(R.id.next_btn);
+        suggestionBtn = (FancyButton) findViewById(R.id.qf_suggestion);
+
         SnapHelper snapHelper = new LinearSnapHelper();
         mQaRecView = (RecyclerView) findViewById(R.id.qa_recview);
         mAdapter = new QAAdapter(mQuestionFeedPresenter);
@@ -84,12 +93,13 @@ public class QuestionFeedActivity extends AppCompatActivity implements IQuestion
         });
 
 
-
-
-
-
-
-
+        suggestionBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(QuestionFeedActivity.this, SuggestionActivity.class);
+                startActivity(i);
+            }
+        });
 
     }
 

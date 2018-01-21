@@ -11,7 +11,7 @@
 
     <EditText
         android:id="@+id/username_et"
-        android:hint="username"
+        android:hint="email"
         android:layout_alignParentTop="true"
         android:layout_marginTop="160dp"
         android:layout_width="250dp"

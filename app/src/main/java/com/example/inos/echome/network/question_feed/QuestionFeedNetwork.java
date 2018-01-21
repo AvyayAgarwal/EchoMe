@@ -1,5 +1,7 @@
 package com.example.inos.echome.network.question_feed;
 
+import android.util.Log;
+
 import com.example.inos.echome.models.QuestionAnswer;
 import com.example.inos.echome.presenters.question_feed.IQuestionFeedPresenter;
 import com.google.gson.FieldNamingPolicy;
@@ -36,7 +38,7 @@ public class QuestionFeedNetwork implements IQuestionFeedNetwork {
                 .create();
 
         Retrofit r = new Retrofit.Builder()
-                .baseUrl("https://azhng.lib.id/echo@dev/")
+                .baseUrl("https://azhng.lib.id/echo@dev")
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
 
@@ -47,6 +49,10 @@ public class QuestionFeedNetwork implements IQuestionFeedNetwork {
             @Override
             public void onResponse(Call<QuestionAnswer> call, Response<QuestionAnswer> response) {
                 // TODO: parse the response
+                if (response.isSuccessful()) {
+                    Log.d("VINIT", "Successful Response...");
+                    QuestionAnswer qa = response.body();
+                }
 
             }
 

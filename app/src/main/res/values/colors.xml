@@ -6,6 +6,7 @@
     <color name="secondaryDarkColor">#c70055</color>
     <color name="primaryTextColor">#ffffff</color>
     <color name="secondaryTextColor">#ffffff</color>
+    <color name="qaColour">#fca1bb</color>
 
     <color name="primaryLightColor">#88ecff</color>
     <color name="secondaryLightColor">#ff84b0</color>

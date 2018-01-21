@@ -26,25 +26,47 @@
         <!--android:src="@drawable/ic_keyboard_arrow_right_white_24dp"-->
         <!--/>-->
 
-    <mehdi.sakout.fancybuttons.FancyButton
-        android:id="@+id/next_btn"
-        fancy:fb_text="one more!"
-        fancy:fb_textSize="25sp"
-        fancy:fb_textColor="#fff"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="25dp"
+        android:layout_height="80dp"
         android:layout_alignParentBottom="true"
-
-        fancy:fb_defaultColor="@color/colorPrimary"
-        fancy:fb_focusColor="@color/colorAccent"
-        fancy:fb_radius="5dp"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
         android:layout_marginTop="15dp"
         android:layout_marginBottom="15dp"
-        fancy:fb_borderWidth="2dp"
-        fancy:fb_borderColor="@color/cardview_shadow_start_color"/>
+        android:orientation="horizontal"
+        >
+        <mehdi.sakout.fancybuttons.FancyButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="15dp"
+            android:paddingTop="15dp"
+            android:layout_marginRight="10dp"
+            fancy:fb_iconResource="@drawable/ic_settings_black_24dp"
+            fancy:fb_text=""
+            fancy:fb_defaultColor="@color/primaryLightColor"
+            fancy:fb_focusColor="@color/colorAccent"
+            fancy:fb_radius="5dp"
+            fancy:fb_borderWidth="2dp"
+            fancy:fb_borderColor="@color/cardview_shadow_start_color"/>
+
+        <mehdi.sakout.fancybuttons.FancyButton
+            android:id="@+id/next_btn"
+            fancy:fb_text="one more!"
+            fancy:fb_textSize="25sp"
+            fancy:fb_textColor="#000"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+
+
+            fancy:fb_defaultColor="@color/primaryLightColor"
+            fancy:fb_focusColor="@color/colorAccent"
+            fancy:fb_radius="5dp"
+            fancy:fb_borderWidth="2dp"
+            fancy:fb_borderColor="@color/cardview_shadow_start_color"/>
+    </LinearLayout>
+
+
 
 
 </RelativeLayout>

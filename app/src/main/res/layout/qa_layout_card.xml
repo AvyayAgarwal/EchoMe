@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:layout_width="match_parent">
-<android.support.v7.widget.CardView android:layout_height="570dp"
+<android.support.v7.widget.CardView android:layout_height="475dp"
     android:layout_width="320dp"
+    android:layout_marginBottom="20dp"
     android:layout_centerInParent="true"
-    android:background="@color/colorPrimary"
+    app:cardBackgroundColor="@color/secondaryDarkColor"
     android:padding="10dp"
     app:cardElevation="5dp"
     app:cardCornerRadius="5dp"
@@ -16,13 +17,15 @@
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-        android:padding="50dp">
-
+        android:paddingTop="50dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp">
         <TextView
             android:id="@+id/question_tv"
             android:text="On a scale of 1 to 10, how friendly is this person?"
             android:layout_gravity="center_horizontal"
             android:textSize="@dimen/question_size"
+            android:layout_alignParentTop="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
@@ -30,6 +33,7 @@
             android:id="@+id/ans_list_rg"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
             android:layout_below="@id/question_tv"
             android:padding="5dp">
         </RadioGroup>

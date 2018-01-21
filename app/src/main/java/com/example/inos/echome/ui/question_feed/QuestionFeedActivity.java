@@ -1,5 +1,6 @@
 package com.example.inos.echome.ui.question_feed;
 
+import android.os.AsyncTask;
 import android.os.Handler;
 import android.support.annotation.IdRes;
 import android.support.design.widget.FloatingActionButton;
@@ -151,26 +152,35 @@ public class QuestionFeedActivity extends AppCompatActivity implements IQuestion
                 @Override
                 public void onCheckedChanged(RadioGroup radioGroup, @IdRes int i) {
                     mQuestionFeedPresenter.answered(((RadioButton)findViewById(i)).getText().toString(), questionNumber);
-                    mQuestionFeedPresenter.getQuestionStats(questionNumber);
                     questionCardFlipView.flipTheView();
+
+                    AsyncTask.execute(new Runnable() {
+                        @Override
+                        public void run() {
+                            BarGraphSeries<DataPoint> series = mQuestionFeedPresenter.getQuestionStats(questionNumber);
+                            mResultsGraph = (GraphView) findViewById(R.id.results_gv);
+                            mResultsGraph.addSeries(series);
+                            series.setSpacing(50);
+
+                        }
+                    });
+
                     final Handler handler = new Handler();
                     handler.postDelayed(new Runnable() {
                         @Override
                         public void run() {
                             graphCard.setVisibility(View.VISIBLE);
                             qaCard.setVisibility(View.INVISIBLE);
-                            mResultsGraph = (GraphView) findViewById(R.id.results_gv);
                             // TODO: get all datapoints for given question about me
-                            BarGraphSeries<DataPoint> series = new BarGraphSeries<DataPoint>(new DataPoint[]{
-                                    new DataPoint(0, 0),
-                                    new DataPoint(1, 1),
-                                    new DataPoint(2, 2),
-                                    new DataPoint(3, 3),
-                                    new DataPoint(4, 4),
-                                    new DataPoint(5, 5),
-                            });
-                            mResultsGraph.addSeries(series);
-                            series.setSpacing(50);
+//                            BarGraphSeries<DataPoint> series = new BarGraphSeries<DataPoint>(new DataPoint[]{
+//                                    new DataPoint(0, 0),
+//                                    new DataPoint(1, 1),
+//                                    new DataPoint(2, 2),
+//                                    new DataPoint(3, 3),
+//                                    new DataPoint(4, 4),
+//                                    new DataPoint(5, 5),
+//                            });
+
                         }
                     }, 1000);
                 }

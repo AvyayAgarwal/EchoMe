@@ -1,5 +1,6 @@
 package com.example.inos.echome.presenters.question_feed;
 
+import android.provider.ContactsContract;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,8 +14,11 @@ import com.example.inos.echome.network.question_feed.QuestionFeedNetwork;
 import com.example.inos.echome.ui.question_feed.IQuestionFeedView;
 import com.example.inos.echome.ui.question_feed.QuestionFeedActivity;
 import com.jjoe64.graphview.GraphView;
+import com.jjoe64.graphview.series.BarGraphSeries;
+import com.jjoe64.graphview.series.DataPoint;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 /**
  * Created by vinitsoni on 2018-01-20.
@@ -46,8 +50,17 @@ public class QuestionFeedPresenter implements IQuestionFeedPresenter {
     }
 
     @Override
-    public void getQuestionStats(int qKey) {
-        this.mQuestionFeedNetwork.getQuestionStats(username, qKey);
+    public BarGraphSeries<DataPoint> getQuestionStats(int qKey) {
+        Map<String, Integer> m = this.mQuestionFeedNetwork.getQuestionStats(username, mQAList.get(qKey).key);
+        DataPoint[] arr = new DataPoint[m.size()+1];
+        int count = 1;
+        arr[0] = new DataPoint(0, 0);
+        for (Map.Entry<String, Integer> en : m.entrySet()) {
+            Log.d("VINIT", en.getKey()+" --> "+en.getValue());
+            arr[count] = new DataPoint(count, en.getValue());
+            count++;
+        }
+        return new BarGraphSeries<DataPoint>(arr);
     }
 
     @Override
@@ -77,6 +90,11 @@ public class QuestionFeedPresenter implements IQuestionFeedPresenter {
     public void notifyQuestionReceived(QuestionAnswer qa) {
         this.mQAList.add(qa);
         this.mListAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void notifyAnsStatsReceived(Map<String, Integer> ansStats) {
+
     }
 
     @Override

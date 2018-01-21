@@ -15,6 +15,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.http.Path;
 
 /**
  * Created by vinitsoni on 2018-01-20.
@@ -32,33 +33,40 @@ public class QuestionFeedNetwork implements IQuestionFeedNetwork {
     public void getQuestion(String userEmail) {
         // TODO: get questions from server
 
-        Gson gson = new GsonBuilder()
-                .setFieldNamingPolicy(FieldNamingPolicy.UPPER_CAMEL_CASE)
-                .setPrettyPrinting()
-                .create();
-
         Retrofit r = new Retrofit.Builder()
-                .baseUrl("https://azhng.lib.id/echo@dev")
-                .addConverterFactory(GsonConverterFactory.create(gson))
+                .baseUrl("https://azhng.lib.id/")
+                .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
         QuestionFeedService qService = r.create(QuestionFeedService.class);
-
+        Log.d("VINIT", "BEFORE CALL");
         Call<QuestionAnswer> qaCall = qService.getQuestion(userEmail); // TODO: add params
         qaCall.enqueue(new Callback<QuestionAnswer>() {
             @Override
             public void onResponse(Call<QuestionAnswer> call, Response<QuestionAnswer> response) {
                 // TODO: parse the response
-                if (response.isSuccessful()) {
-                    Log.d("VINIT", "Successful Response...");
-                    QuestionAnswer qa = response.body();
+                try {
+                    Log.d("VINIT", "BEFORE CALL");
+                    if (response.isSuccessful()) {
+                        Log.d("VINIT", "Successful Response...");
+                        QuestionAnswer qa = response.body();
+                        mQuestionFeedPresenter.notifyQuestionReceived(qa);
+                        for (int i = 0 ; i < qa.answers.length; i++) {
+                            Log.d("VINIT", qa.answers[i]);
+                        }
+
+                    } else {
+                        Log.d("VINIT", "response NOT success");
+                    }
+                } catch (Exception e) {
+                    Log.d("VINIT", e.getMessage());
                 }
 
             }
 
             @Override
             public void onFailure(Call<QuestionAnswer> call, Throwable t) {
-
+                Log.d("VINIT", t.getMessage());
             }
         });
 

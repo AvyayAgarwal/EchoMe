@@ -5,15 +5,15 @@ package com.example.inos.echome.models;
  */
 
 public class QuestionAnswer {
-    private String question;
-    private String mAnswer;
-    private int key;
-    private String[] answers;
-    private String uuid;
-    private String crush_email;
-    private String user_email;
-    private String final_answer;
-    
+    public String question;
+    public String mAnswer;
+    public int key;
+    public String[] answers;
+    public String uuid;
+    public String crush_email;
+    public String user_email;
+    public String final_answer;
+
 
 
 

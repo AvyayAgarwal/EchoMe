@@ -15,7 +15,7 @@ import retrofit2.http.Query;
 public interface QuestionFeedService {
 
 
-    @GET("/question_instance/generate_random?user_email=test1")
+    @GET("echo@dev//question_instance/generate_random")
     Call<QuestionAnswer> getQuestion(@Query("user_email") String userEmail);
 
 

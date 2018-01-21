@@ -12,6 +12,7 @@ import com.example.inos.echome.network.question_feed.IQuestionFeedNetwork;
 import com.example.inos.echome.network.question_feed.QuestionFeedNetwork;
 import com.example.inos.echome.ui.question_feed.IQuestionFeedView;
 import com.example.inos.echome.ui.question_feed.QuestionFeedActivity;
+import com.jjoe64.graphview.GraphView;
 
 import java.util.ArrayList;
 
@@ -36,12 +37,8 @@ public class QuestionFeedPresenter implements IQuestionFeedPresenter {
     @Override
     public void setInitialList() {
         // TODO: fetch a list from network layer
-        notifyQuestionReceived(new QuestionAnswer("What is your name?", "Vinit Soni"));
-        notifyQuestionReceived(new QuestionAnswer("What happened?", "Holy shit"));
-        notifyQuestionReceived(new QuestionAnswer("On a scale of 1 to 10, how friendly is this person? On a scale of 1 to 10, how friendly is this person?", "adsad"));
-        notifyQuestionReceived(new QuestionAnswer("checkssdsadsa", "Holy shit again"));
         for (int i = 0; i < 5; i++) {
-            mQuestionFeedNetwork.getQuestion("vinso"); // TODO: change to dynamically set username
+            mQuestionFeedNetwork.getQuestion("test1"); // TODO: change to dynamically set username
         }
     }
 
@@ -63,6 +60,8 @@ public class QuestionFeedPresenter implements IQuestionFeedPresenter {
     @Override
     public void answered(String answer) {
         Log.d("Vinit", "Answered with "+answer);
+        String hyphenatedAns = answer.replaceAll(" ", "-");
+        // TODO: mQuestionFeedNetwork.updateAnswer();
     }
 
     @Override

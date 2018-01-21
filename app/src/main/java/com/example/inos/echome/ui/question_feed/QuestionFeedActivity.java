@@ -16,11 +16,16 @@ import android.view.ViewGroup;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.inos.echome.R;
 import com.example.inos.echome.models.QuestionAnswer;
 import com.example.inos.echome.presenters.question_feed.IQuestionFeedPresenter;
 import com.example.inos.echome.presenters.question_feed.QuestionFeedPresenter;
+import com.jjoe64.graphview.DefaultLabelFormatter;
+import com.jjoe64.graphview.GraphView;
+import com.jjoe64.graphview.series.BarGraphSeries;
+import com.jjoe64.graphview.series.DataPoint;
 import com.wajahatkarim3.easyflipview.EasyFlipView;
 
 import java.util.ArrayList;
@@ -36,6 +41,8 @@ public class QuestionFeedActivity extends AppCompatActivity implements IQuestion
     private ArrayList<QuestionAnswer> qaList;
 
     private IQuestionFeedPresenter mQuestionFeedPresenter;
+
+    private GraphView mResultsGraph;
 
 
 
@@ -108,10 +115,7 @@ public class QuestionFeedActivity extends AppCompatActivity implements IQuestion
         @Override
         public void onBindViewHolder(QuestionFeedActivity.CustomViewHolder holder, int position) {
             holder.questionTextView.setText(mQuestionFeedPresenter.getQAAt(position).getQuestion());
-            // TODO: change to for loop
-            ArrayList<String> ansList = new ArrayList<>(0);
-            ansList.add(mQuestionFeedPresenter.getQAAt(position).getAnswer());
-            holder.addAnswerOption(ansList);
+            holder.addAnswerOptions(mQuestionFeedPresenter.getQAAt(position).answers);
 
         }
 
@@ -149,16 +153,36 @@ public class QuestionFeedActivity extends AppCompatActivity implements IQuestion
                         public void run() {
                             graphCard.setVisibility(View.VISIBLE);
                             qaCard.setVisibility(View.INVISIBLE);
+                            mResultsGraph = (GraphView) findViewById(R.id.results_gv);
+                            // TODO: get all datapoints for given question about me
+                            BarGraphSeries<DataPoint> series = new BarGraphSeries<DataPoint>(new DataPoint[]{
+                                    new DataPoint(0, 0),
+                                    new DataPoint(1, 1),
+                                    new DataPoint(2, 2),
+                                    new DataPoint(3, 3),
+                                    new DataPoint(4, 4),
+                                    new DataPoint(5, 5),
+                            });
+                            mResultsGraph.addSeries(series);
+                            series.setSpacing(50);
                         }
                     }, 1000);
                 }
             });
         }
 
-        public void addAnswerOption(ArrayList<String> ansList) {
-            for (int i = 0; i < ansList.size(); i++) {
+        public void addAnswerOptions(String[] ansList) {
+            ansListRg.removeAllViews();
+            for (int i = 0; i < ansList.length; i++) {
                 RadioButton rb = new RadioButton(getBaseContext());
-                rb.setText(ansList.get(i));
+                boolean isChecked = false;
+                if (ansListRg.getChildAt(i) != null) {
+                    isChecked = ((RadioButton)ansListRg.getChildAt(i)).isChecked();
+                    ansListRg.removeViewAt(i);
+
+                }
+                rb.setChecked(isChecked);
+                rb.setText(ansList[i]);
                 this.ansListRg.addView(rb);
             }
 

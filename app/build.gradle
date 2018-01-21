@@ -36,4 +36,6 @@ dependencies {
     compile 'com.squareup.retrofit2:converter-gson:2.1.0'
     compile 'com.android.support:design:26.+'
     compile 'com.github.medyo:fancybuttons:1.8.4'
+
+    compile 'com.jjoe64:graphview:4.2.1'
 }

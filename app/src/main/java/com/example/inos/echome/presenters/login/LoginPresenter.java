@@ -27,7 +27,7 @@ public class LoginPresenter implements ILoginPresenter {
 
     @Override
     public void updateLoginStatus(boolean isSuccess) {
-            mLoginView.updateLoginStatus(true);
+            mLoginView.updateLoginStatus(isSuccess);
 
     }
 

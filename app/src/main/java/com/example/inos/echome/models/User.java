@@ -5,39 +5,12 @@ package com.example.inos.echome.models;
  */
 
 public class User {
-    private String email;
+    private String username;
     private String password;
-    private String firstName;
-    private String lastName;
 
     public User(String u, String p) {
-        email = u;
+        username = u;
         password = p;
-        firstName = "";
-        lastName = "";
-    }
-
-    public User(String u, String p, String f, String l) {
-        email = u;
-        password = p;
-        firstName = f;
-        lastName = l;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
     }
 
     public String getPassword() {
@@ -48,11 +21,11 @@ public class User {
         this.password = password;
     }
 
-    public String getEmail() {
-        return email;
+    public String getUsername() {
+        return username;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setUsername(String username) {
+        this.username = username;
     }
 }

@@ -6,4 +6,6 @@ package com.example.inos.echome.ui.question_feed;
 
 public interface IQuestionFeedView {
     void getQuestions();
+
+    void showEndgame();
 }

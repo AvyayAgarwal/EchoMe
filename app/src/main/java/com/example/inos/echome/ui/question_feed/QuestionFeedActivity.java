@@ -47,6 +47,8 @@ public class QuestionFeedActivity extends AppCompatActivity implements IQuestion
 
     private GraphView mResultsGraph;
 
+    private TextView mEndgameTv;
+
 
 
     @Override
@@ -65,6 +67,9 @@ public class QuestionFeedActivity extends AppCompatActivity implements IQuestion
         mQuestionFeedPresenter.setQAListAdapter(mAdapter);
         mQuestionFeedPresenter.setInitialList();
 
+        mEndgameTv = (TextView) findViewById(R.id.endgame_tv);
+        mEndgameTv.setVisibility(View.INVISIBLE);
+
         final RecyclerView.SmoothScroller smoothScroller = new LinearSmoothScroller(getBaseContext()) {
             @Override protected int getHorizontalSnapPreference() {
                 return LinearSmoothScroller.SNAP_TO_START;
@@ -79,15 +84,23 @@ public class QuestionFeedActivity extends AppCompatActivity implements IQuestion
             @Override
             public void onClick(View view) {
                 smoothScroller.setTargetPosition(llm.findFirstVisibleItemPosition()+1);
+                // mQaRecView.scrollToPosition(llm.findFirstVisibleItemPosition()+1);
+//                if (llm.findFirstVisibleItemPosition() % 4 == 0) {
+//                    Toast.makeText(getBaseContext(), "Adding more questions!", Toast.LENGTH_SHORT).show();
+//                    mQuestionFeedPresenter.addMoreQuestions();
+//                }
                 llm.startSmoothScroll(smoothScroller);
+                Handler h = new Handler();
+                h.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        mQuestionFeedPresenter.removeQuestion();
+                        mQaRecView.scrollToPosition(0);
+                    }
+                }, 700);
+
             }
         });
-
-
-
-
-
-
 
 
 
@@ -96,6 +109,12 @@ public class QuestionFeedActivity extends AppCompatActivity implements IQuestion
     @Override
     public void getQuestions() {
         // TODO: get the presenter to get the questions
+    }
+
+    @Override
+    public void showEndgame() {
+        this.mEndgameTv.setVisibility(View.VISIBLE);
+        this.nextBtn.setEnabled(false);
     }
 
 
@@ -111,6 +130,8 @@ public class QuestionFeedActivity extends AppCompatActivity implements IQuestion
         public QuestionFeedActivity.CustomViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             View itemView = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.question_answer_layout, parent, false);
+            itemView.findViewById(R.id.graph_layout).setVisibility(View.INVISIBLE);
+            itemView.findViewById(R.id.qa_card_layout).setVisibility(View.VISIBLE);
 
             return new QuestionFeedActivity.CustomViewHolder(itemView, 0);
         }
@@ -120,6 +141,7 @@ public class QuestionFeedActivity extends AppCompatActivity implements IQuestion
             holder.questionTextView.setText(mQuestionFeedPresenter.getQAAt(position).getQuestion());
             holder.addAnswerOptions(mQuestionFeedPresenter.getQAAt(position).answers);
             holder.questionNumber = position;
+            holder.setIsRecyclable(false);
 
         }
 
@@ -136,7 +158,8 @@ public class QuestionFeedActivity extends AppCompatActivity implements IQuestion
         public RadioGroup ansListRg;
         public EasyFlipView questionCardFlipView;
         public int questionNumber;
-
+        public View qaCard;
+        public View graphCard;
 
         public CustomViewHolder(View itemView, int qNum) {
             super(itemView);
@@ -144,8 +167,8 @@ public class QuestionFeedActivity extends AppCompatActivity implements IQuestion
             ansListRg = (RadioGroup) itemView.findViewById(R.id.ans_list_rg);
             questionTextView = (TextView) itemView.findViewById(R.id.question_tv);
             questionCardFlipView = (EasyFlipView) itemView.findViewById(R.id.question_card_fv);
-            final View qaCard = itemView.findViewById(R.id.qa_card_layout);
-            final View graphCard = itemView.findViewById(R.id.graph_layout);
+            qaCard = itemView.findViewById(R.id.qa_card_layout);
+            graphCard = itemView.findViewById(R.id.graph_layout);
             graphCard.setVisibility(View.INVISIBLE);
             qaCard.setVisibility(View.VISIBLE);
             ansListRg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {

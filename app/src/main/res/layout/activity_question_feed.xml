@@ -26,6 +26,17 @@
         <!--android:src="@drawable/ic_keyboard_arrow_right_white_24dp"-->
         <!--/>-->
 
+    <TextView
+        android:id="@+id/endgame_tv"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
+        android:text="That's it for today! Come back tomorrow for more!"
+        android:gravity="center"
+        android:textSize="20sp"
+        android:layout_centerInParent="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="80dp"

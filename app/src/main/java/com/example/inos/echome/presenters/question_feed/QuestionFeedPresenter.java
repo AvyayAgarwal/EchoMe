@@ -44,7 +44,7 @@ public class QuestionFeedPresenter implements IQuestionFeedPresenter {
     @Override
     public void setInitialList() {
         // TODO: fetch a list from network layer
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 10; i++) {
             mQuestionFeedNetwork.getQuestion(username); // TODO: change to dynamically set username
         }
     }
@@ -56,11 +56,34 @@ public class QuestionFeedPresenter implements IQuestionFeedPresenter {
         int count = 1;
         arr[0] = new DataPoint(0, 0);
         for (Map.Entry<String, Integer> en : m.entrySet()) {
-            Log.d("VINIT", en.getKey()+" --> "+en.getValue());
-            arr[count] = new DataPoint(count, en.getValue());
-            count++;
+            try {
+                Log.d("VINIT", en.getKey()+" --> "+en.getValue());
+                arr[count] = new DataPoint(count, en.getValue());
+                count++;
+            } catch (Exception e) {
+
+            }
         }
         return new BarGraphSeries<DataPoint>(arr);
+    }
+
+    @Override
+    public void addMoreQuestions() {
+        for (int i = 0; i < 5; i++) {
+            mQuestionFeedNetwork.getQuestion(username); // TODO: change to dynamically set username
+        }
+    }
+
+    @Override
+    public void removeQuestion() {
+        if (mQAList.size() > 0) {
+            mQAList.remove(0);
+            if (mQAList.size() == 0) {
+                mQuestionFeedView.showEndgame();
+            }
+        }
+        Log.d("SIZE", mQAList.size()+"");
+        mListAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -101,6 +124,7 @@ public class QuestionFeedPresenter implements IQuestionFeedPresenter {
     public void setQAListAdapter(QuestionFeedActivity.QAAdapter adapter) {
         this.mListAdapter = adapter;
     }
+
 
 
 }

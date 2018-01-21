@@ -22,6 +22,8 @@ public interface IQuestionFeedPresenter {
     void setQAListAdapter(QuestionFeedActivity.QAAdapter adapter);
     void setInitialList();
     BarGraphSeries<DataPoint> getQuestionStats(int qKey);
+    void addMoreQuestions();
+    void removeQuestion();
 
     // USED BY MODEL
     void answered(String answer, int questionNumber); // TODO: Change to get the valid params

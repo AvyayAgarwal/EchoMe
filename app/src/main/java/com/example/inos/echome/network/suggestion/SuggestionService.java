@@ -20,5 +20,8 @@ public interface SuggestionService {
     @GET("echo@dev/users/all")
     Call<List<User>> getUsers();
 
+    @GET("echo@dev/users/")
+    Call<List<User>> postSuggestion();
+
 
 }

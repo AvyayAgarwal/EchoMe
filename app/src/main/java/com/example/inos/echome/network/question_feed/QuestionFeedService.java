@@ -15,8 +15,14 @@ import retrofit2.http.Query;
 public interface QuestionFeedService {
 
 
-    @GET("echo@dev//question_instance/generate_random")
+    @GET("echo@dev/question_instance/generate_random")
     Call<QuestionAnswer> getQuestion(@Query("user_email") String userEmail);
+
+    @GET("echo@dev/question_instance/update_answer")
+    Call<String> postUpdatedAnswer(@Query("uuid") String uuid, @Query("answer") String ans);
+
+    @GET("echo@dev/users/qstats")
+    Call<String> getQuestionResults(@Query("email") String email_username, @Query("qbase_key") int key);
 
 
 }

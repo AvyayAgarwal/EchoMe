@@ -1,4 +1,4 @@
-package com.example.inos.echome.ui;
+package com.example.inos.echome.ui.login;
 
 /**
  * Created by avyayagarwal on 2018-01-20.

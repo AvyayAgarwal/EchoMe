@@ -34,6 +34,8 @@ import mehdi.sakout.fancybuttons.FancyButton;
 
 public class QuestionFeedActivity extends AppCompatActivity implements IQuestionFeedView {
 
+    private String username;
+
     private RecyclerView mQaRecView;
     private FancyButton nextBtn;
 
@@ -50,8 +52,8 @@ public class QuestionFeedActivity extends AppCompatActivity implements IQuestion
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_question_feed);
-
-        mQuestionFeedPresenter = new QuestionFeedPresenter(this); // TODO: DO NOT REMOVE NOTE: MUST BE INIT BEFORE REC VIEW
+        this.username = "test1" ;// savedInstanceState.getString("username", "test1");
+        mQuestionFeedPresenter = new QuestionFeedPresenter(this, username); // TODO: DO NOT REMOVE NOTE: MUST BE INIT BEFORE REC VIEW
 
         nextBtn = (FancyButton) findViewById(R.id.next_btn);
         SnapHelper snapHelper = new LinearSnapHelper();
@@ -109,13 +111,14 @@ public class QuestionFeedActivity extends AppCompatActivity implements IQuestion
             View itemView = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.question_answer_layout, parent, false);
 
-            return new QuestionFeedActivity.CustomViewHolder(itemView);
+            return new QuestionFeedActivity.CustomViewHolder(itemView, 0);
         }
 
         @Override
         public void onBindViewHolder(QuestionFeedActivity.CustomViewHolder holder, int position) {
             holder.questionTextView.setText(mQuestionFeedPresenter.getQAAt(position).getQuestion());
             holder.addAnswerOptions(mQuestionFeedPresenter.getQAAt(position).answers);
+            holder.questionNumber = position;
 
         }
 
@@ -131,10 +134,12 @@ public class QuestionFeedActivity extends AppCompatActivity implements IQuestion
         public TextView questionTextView;
         public RadioGroup ansListRg;
         public EasyFlipView questionCardFlipView;
+        public int questionNumber;
 
 
-        public CustomViewHolder(View itemView) {
+        public CustomViewHolder(View itemView, int qNum) {
             super(itemView);
+            this.questionNumber = qNum;
             ansListRg = (RadioGroup) itemView.findViewById(R.id.ans_list_rg);
             questionTextView = (TextView) itemView.findViewById(R.id.question_tv);
             questionCardFlipView = (EasyFlipView) itemView.findViewById(R.id.question_card_fv);
@@ -145,7 +150,8 @@ public class QuestionFeedActivity extends AppCompatActivity implements IQuestion
             ansListRg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(RadioGroup radioGroup, @IdRes int i) {
-                    mQuestionFeedPresenter.answered(((RadioButton)findViewById(i)).getText().toString());
+                    mQuestionFeedPresenter.answered(((RadioButton)findViewById(i)).getText().toString(), questionNumber);
+                    mQuestionFeedPresenter.getQuestionStats(questionNumber);
                     questionCardFlipView.flipTheView();
                     final Handler handler = new Handler();
                     handler.postDelayed(new Runnable() {

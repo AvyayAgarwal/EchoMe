@@ -24,6 +24,12 @@ import retrofit2.http.Path;
 public class QuestionFeedNetwork implements IQuestionFeedNetwork {
 
     IQuestionFeedPresenter mQuestionFeedPresenter;
+    private Retrofit r = new Retrofit.Builder()
+            .baseUrl("https://azhng.lib.id/")
+            .addConverterFactory(GsonConverterFactory.create())
+            .build();
+
+    private QuestionFeedService qService = r.create(QuestionFeedService.class);
 
     public QuestionFeedNetwork(IQuestionFeedPresenter qfp) {
         mQuestionFeedPresenter = qfp;
@@ -33,12 +39,6 @@ public class QuestionFeedNetwork implements IQuestionFeedNetwork {
     public void getQuestion(String userEmail) {
         // TODO: get questions from server
 
-        Retrofit r = new Retrofit.Builder()
-                .baseUrl("https://azhng.lib.id/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        QuestionFeedService qService = r.create(QuestionFeedService.class);
         Log.d("VINIT", "BEFORE CALL");
         Call<QuestionAnswer> qaCall = qService.getQuestion(userEmail); // TODO: add params
         qaCall.enqueue(new Callback<QuestionAnswer>() {
@@ -71,4 +71,51 @@ public class QuestionFeedNetwork implements IQuestionFeedNetwork {
         });
 
     }
+
+    @Override
+    public void updateAnswer(String ans, String uuid) {
+        Call<String> updateAns = qService.postUpdatedAnswer(uuid, ans);
+        updateAns.enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+                try {
+                    Log.d("VINIT", "BEFORE CALL");
+                    if (response.isSuccessful()) {
+                        Log.d("VINIT", "Successful Response...");
+                        String returnVal = response.body();
+                    } else {
+                        Log.d("VINIT", "response NOT success");
+                    }
+                } catch (Exception e) {
+                    Log.d("VINIT", e.getMessage());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+                Log.d("VINIT", "complete failure, "+t.getLocalizedMessage());
+            }
+        });
+    }
+
+    @Override
+    public void getQuestionStats(String username, int key) {
+        Call<String> getStats = qService.getQuestionResults(username, key);
+        getStats.enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+                Log.d("VINIT", "Response received");
+                if (response.isSuccessful()) {
+                    Log.d("VINIT", response.body().toString()); // TODO: send back to the UI
+                }
+            }
+
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+
+            }
+        });
+    }
+
+
 }

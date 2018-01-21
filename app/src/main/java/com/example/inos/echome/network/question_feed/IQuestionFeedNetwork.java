@@ -6,4 +6,8 @@ package com.example.inos.echome.network.question_feed;
 
 public interface IQuestionFeedNetwork {
     void getQuestion(String userEmail);
+
+    void updateAnswer(String ans, String uuid);
+
+    void getQuestionStats(String username, int key);
 }

@@ -18,8 +18,9 @@ public interface IQuestionFeedPresenter {
     int getQAListSize();
     void setQAListAdapter(QuestionFeedActivity.QAAdapter adapter);
     void setInitialList();
+    void getQuestionStats(int qKey);
 
     // USED BY MODEL
-    void answered(String answer); // TODO: Change to get the valid params
+    void answered(String answer, int questionNumber); // TODO: Change to get the valid params
     void notifyQuestionReceived(QuestionAnswer qa);
 }

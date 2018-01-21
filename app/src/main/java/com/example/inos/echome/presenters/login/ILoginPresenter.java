@@ -1,4 +1,4 @@
-package com.example.inos.echome.presenters;
+package com.example.inos.echome.presenters.login;
 
 /**
  * Created by avyayagarwal on 2018-01-20.

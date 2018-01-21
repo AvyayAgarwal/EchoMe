@@ -18,7 +18,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.question_feed.QuestionFeedActivity"></activity>
+        <activity android:name=".ui.question_feed.QuestionFeedActivity" />
+        <activity android:name=".ui.suggestion.SuggestionActivity"></activity>
     </application>
 
 </manifest>
